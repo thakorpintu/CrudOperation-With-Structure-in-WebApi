@@ -1,0 +1,239 @@
+﻿@model BusinessLayer.Entity.UserMaster
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { id = "productform", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>UserMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model=>model.Id)
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Image, new { Type = "file", htmlAttributes = new { @class = "form-control" } })
+                
+                <img id="showimg" height="100" width="100" src="" alt="Alternate Text" />
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" onclick="Save()" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover table-condensed" id="mytable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Mobile</th>
+                <th>Image</th>
+                <th>DateTime</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+     <tbody>
+
+     </tbody>
+    </table>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            alert('sss');
+            ShowData();
+        })
+        function Save()
+        {
+            var formdatapage = new FormData();
+
+            var id = Id.value;
+
+            var filedata = $('#Image').get(0).files;
+            var oldimag = $('#showimg').attr('src');
+            if (id>0)
+            {
+                formdatapage.append("Id", Id.value);
+
+            }
+            formdatapage.append("Name", Name.value);
+            formdatapage.append("Email", Email.value);
+            formdatapage.append("Password", Password.value);
+            formdatapage.append("Mobile", Mobile.value);
+            if (filedata.length>0)
+            {
+                formdatapage.append("Image",filedata[0])
+            }
+            else
+            {
+                formdatapage.append("Image", oldimag)
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: ("/api/CrudOperationApi/SaveData"),
+                data: formdatapage,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(retdata){
+                    debugger
+                    console.log(retdata);
+                    if (retdata == 1)
+                    {
+                        alert('Succefully Save Data...')
+                    }
+                    else
+                    {
+                        alert('Succefully Update Data...')
+
+                    }
+                    $('#Id').val('');
+                    $('#Name').val('');
+                    $('#Email').val('');
+                    $('#Password').val('');
+                    $('#Mobile').val('');
+                    $('#Mobile').val('');
+                    $('#Image').val('');
+                    $('#showimg').attr('src','');
+
+
+                    ShowData();
+
+                }
+            })
+        }
+
+        function EditData(id) {
+            debugger
+            var model = {
+                Id: id
+            };
+            $.ajax({
+                type: 'POST',
+                url: ("/api/CrudOperationApi/Edit"),
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+
+                success: function (retdata) {
+                    $('#Id').val(retdata.Id);
+                    $('#Name').val(retdata.Name);
+                    $('#Email').val(retdata.Email);
+                    $('#Password').val(retdata.Password);
+                    $('#Mobile').val(retdata.Mobile);
+                    $('#showimg').attr('src', retdata.Image.replace('~', ''));
+
+
+                }
+            })
+
+
+        }
+        function DeleteData(id) {
+            debugger
+            var model = {
+                Id: id
+            };
+            $.ajax({
+                type: 'POST',
+                url: ("/api/CrudOperationApi/Delete"),
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+
+                success: function (retdata) {
+                    if(retdata==1)
+                    {
+                        alert('Successfully Delete Data');
+                        ShowData();
+
+                    }
+
+                }
+            })
+
+
+        }
+
+        function ShowData() {
+            var tbody = $("#mytable>tbody")
+            $.ajax({
+                type: 'Get',
+                url: ("/api/CrudOperationApi/Index"),
+                data: {},
+                success: function (retdata) {
+                    tbody.html("");
+                    for (var i = 0; i <retdata.length; i++) {
+                        tbody.append('<tr>'+
+                            '<td>' + retdata[i].Id + '</td>' +
+                            '<td>' + retdata[i].Name + '</td>' +
+                            '<td>' + retdata[i].Email + '</td>' +
+                            '<td>' + retdata[i].Password + '</td>' +
+                            '<td>' + retdata[i].Mobile + '</td>' +
+                            '<td> <img height="100" width="100" src="'+retdata[i].Image.replace('~','')+'"> </td>' +
+                            '<td>' + retdata[i].Rdate + '</td>' +
+                             '<td>   <a href="#" class="btn btn-success" onclick="EditData(' + retdata[i].Id + ')">Edit</a><a href="#" class="btn btn-danger" onclick="DeleteData(' + retdata[i].Id + ')">Delete</a></td>' +
+                           '</tr>');
+    
+                    }
+
+                }
+            })
+        }
+    </script>
+}

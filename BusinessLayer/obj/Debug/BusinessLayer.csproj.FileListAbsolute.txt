@@ -1,0 +1,10 @@
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\BusinessLayer.dll.config
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\EntityFramework.dll
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Users\Jay Bajarangbali\Documents\Visual Studio 2015\Projects\CrudOperationWith WebApi In Structure\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
